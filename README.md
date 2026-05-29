@@ -2,7 +2,6 @@
 
 Reusable skills for LLMs.
 
-## Skills
 
 | Skill | What it does |
 | --- | --- |
