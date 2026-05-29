@@ -22,11 +22,17 @@ The bar for every line: **if I deleted this, would a competent agent get somethi
 
 ## Process
 
-### 1. Locate the file
+### 1. Locate and consolidate
 
-Check for `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `.cursor/rules/*`, `.github/copilot-instructions.md`. Note which exist and how they reference each other (one often `@includes` another). Treat the canonical file as AGENTS.md unless the user says otherwise.
+Check for every AI instruction file in the repo: `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `.cursor/rules/*`, `.github/copilot-instructions.md`, and any other tool-specific files (Aider, Continue, etc.).
 
-If none exists, ask the user whether to bootstrap one from scratch — that's a different workflow (skip to "Bootstrapping" below).
+`AGENTS.md` is the canonical file. Before auditing, consolidate so all content lives there:
+
+- **Move all instructions from non-`AGENTS.md` files into `AGENTS.md`**, de-duplicating against what's already there. If `AGENTS.md` doesn't exist, promote the most complete file by renaming it to `AGENTS.md`.
+- **`CLAUDE.md` must end up containing only `@AGENTS.md`** — nothing else. The include directive pulls in the canonical file so Claude Code still sees the same instructions.
+- **Other tool files** — once content has moved, decide per tool: symlink to `AGENTS.md`, delete the file, or leave a short "See AGENTS.md" pointer. Don't leave duplicate content; it will drift.
+
+Show the user a brief summary of what was moved and from where before proceeding to audit. If no instruction file exists anywhere, ask whether to bootstrap one from scratch — skip to "Bootstrapping" below.
 
 ### 2. Read it fully
 
