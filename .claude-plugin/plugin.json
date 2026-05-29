@@ -1,6 +1,6 @@
 {
   "name": "coryhouse-skills",
   "skills": [
-    "./skills/tune-agents-md"
+    "./skills/tune-instructions"
   ]
 }

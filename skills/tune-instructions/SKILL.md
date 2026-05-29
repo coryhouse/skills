@@ -1,9 +1,9 @@
 ---
-name: tune-agents-md
-description: Audit and improve a project's AGENTS.md (or CLAUDE.md, .cursorrules) so it's a high-leverage instructions file for AI assistants. Use when the user wants to improve, audit, tune up, review, rewrite, or evaluate their AGENTS.md / CLAUDE.md / AI instructions file, or asks how to make their project guidance more effective for agents.
+name: tune-instructions
+description: Audit and improve a project's AI instructions file (AGENTS.md, CLAUDE.md, .cursorrules, etc.) so it's high-leverage for AI assistants. Use when the user wants to improve, audit, tune up, review, rewrite, or evaluate their AGENTS.md / CLAUDE.md / AI instructions file, or asks how to make their project guidance more effective for agents.
 ---
 
-# Tune AGENTS.md
+# Tune Instructions
 
 Audit a project's agent instructions file and propose concrete edits. The goal is **leverage per line** — every sentence should change agent behavior in a way the agent couldn't have figured out from the codebase itself.
 
