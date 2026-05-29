@@ -32,7 +32,9 @@ Check for every AI instruction file in the repo: `AGENTS.md`, `CLAUDE.md`, `.cur
 - **`CLAUDE.md` must end up containing only `@AGENTS.md`** — nothing else. The include directive pulls in the canonical file so Claude Code still sees the same instructions.
 - **Other tool files** — once content has moved, decide per tool: symlink to `AGENTS.md`, delete the file, or leave a short "See AGENTS.md" pointer. Don't leave duplicate content; it will drift.
 
-Show the user a brief summary of what was moved and from where before proceeding to audit. If no instruction file exists anywhere, ask whether to bootstrap one from scratch — skip to "Bootstrapping" below.
+Show the user a brief summary of what was moved and from where before proceeding to audit.
+
+**If no instruction file exists anywhere, stop and tell the user no instructions file was found.** This skill optimizes existing instructions; it doesn't create new ones from scratch.
 
 ### 2. Read it fully
 
@@ -87,17 +89,6 @@ Ask the user to confirm or veto each category, then apply. Don't silently restru
 ### 7. Apply and stop
 
 Make the edits with `Edit`. Don't add a changelog comment, "last updated" date, or meta-commentary inside the file — those rot. The file is the artifact; the git history is the changelog.
-
-## Bootstrapping (when AGENTS.md doesn't exist)
-
-If the user wants to create one from scratch, don't generate boilerplate. Generate by interview:
-
-1. "What do agents repeatedly get wrong in this project?"
-2. "What's unusual about your setup that surprised new humans?" (platform, versions, tooling)
-3. "What patterns exist that look optional but are load-bearing?"
-4. "What's the one rule you'd put on a sticky note above an agent's desk?"
-
-Draft from the answers. Resist filling sections just because they're conventional — empty is better than generic.
 
 ## Output style for the file itself
 
