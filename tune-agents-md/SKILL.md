@@ -38,7 +38,7 @@ Show the user a brief summary of what was moved and from where before proceeding
 
 ### 2. Read it fully
 
-Read every line of the current file. Don't skim. The whole point is to evaluate each line against the bar.
+Read every line of the current file. Don't skim.
 
 ### 3. Audit each section
 
@@ -50,7 +50,7 @@ For each section, paragraph, or rule, categorize it as one of:
 - **Extract** — genuinely useful but not globally useful. It pays a context tax on every agent turn even though it's only relevant in one corner of the project. Move it somewhere it'll be loaded only when needed.
 - **Keep** — load-bearing for *every* agent turn in this project (accuracy verified in the next step)
 
-The bar for Keep is high: would a competent agent be worse off on a typical task without this line? If the content only matters when touching a specific file, subsystem, or workflow, it's an Extract candidate.
+Would a competent agent be worse off on a typical task without this line? If the content only matters when touching a specific file, subsystem, or workflow, it's an Extract candidate.
 
 #### Where to extract
 
@@ -60,13 +60,13 @@ Pick the destination by scope:
 - **Separate doc referenced from `AGENTS.md`** — content is procedural or scoped to a subsystem, and the agent will look it up by name. Example: `docs/release-process.md` with a one-line pointer in AGENTS.md: "See `docs/release-process.md` when cutting a release." Lazy-loaded — only paid for when followed. Works across every tool that reads `AGENTS.md`, unlike nested `AGENTS.md` files whose support varies (Claude Code, for instance, doesn't hierarchically merge them the way it does `CLAUDE.md`).
 - **A new skill** — content is a multi-step procedure with its own decision tree and would benefit from being triggered by intent phrasing rather than file location. Example: "How to add a new promotion rule" — a workflow with branching choices is a better fit for a skill than a doc. Use `/skill-creator` to scaffold it.
 
-Cut the bloat and queue the extracts before verifying. There's no point verifying a claim that's getting deleted or moved out.
+Cut the bloat and queue the extracts before verifying.
 
 See `references/checklist.md` for the full audit checklist with specific patterns to watch for, and `references/anti-patterns.md` for examples of content that should be cut.
 
 ### 4. Verify surviving claims against the codebase
 
-This is the step most agents skip. Spot-check only what survived audit — anything **Wrong** (factually inaccurate or out of date) gets re-categorized here:
+Spot-check only what survived audit — anything **Wrong** (factually inaccurate or out of date) gets re-categorized here:
 
 - **Versions** — do declared versions match `package.json` / `pom.xml` / `Cargo.toml` / lockfiles? Stale version numbers signal stale everything.
 - **Paths and module names** — does the directory tree it describes match `ls`? Have files moved or been renamed?
@@ -74,17 +74,17 @@ This is the step most agents skip. Spot-check only what survived audit — anyth
 - **External file references** — files it tells the agent to "see X.md for details" — do those files still exist? Are they current?
 - **Tech stack claims** — Java version, Node version, framework version. Confirm against build files.
 
-Flag every drift. Stale facts in AGENTS.md are worse than missing facts — they get cited confidently.
+Flag every drift.
 
 ### 5. Discover what's missing
 
-Audit is half the job; the harder half is finding gaps. Read for what *isn't* there:
+Read for what *isn't* there:
 
 - **Recent gotchas** — scan `git log` for the last 30–60 days. Bug fixes whose commit messages describe non-obvious traps are candidates. ("Fixed X because Y didn't realize Z" → Z belongs in AGENTS.md.)
 - **Repeated PR feedback** — patterns that humans keep correcting are patterns an agent will get wrong.
 - **Platform/environment surprises** — Windows vs Unix, container vs host, specific shell. If running commands requires non-default flags or quoting, document it.
 - **Forbidden patterns** — what should an agent *not* do? Negative rules are often more valuable than positive ones and almost always under-documented.
-- **The "wish I'd known" list** — ask the user: "What do you find yourself correcting agents on repeatedly?" That's the highest-signal input.
+- **The "wish I'd known" list** — ask the user: "What do you find yourself correcting agents on repeatedly?"
 
 ### 6. Propose edits
 
@@ -99,7 +99,7 @@ Ask the user to confirm or veto each category, then apply. Don't silently restru
 
 ### 7. Apply and stop
 
-Make the edits with `Edit`. Don't add a changelog comment, "last updated" date, or meta-commentary inside the file — those rot. The file is the artifact; the git history is the changelog.
+Make the edits with `Edit`. Don't add a changelog comment, "last updated" date, or meta-commentary inside the file — those rot.
 
 ## Output style for the file itself
 
