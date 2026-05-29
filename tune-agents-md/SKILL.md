@@ -57,8 +57,7 @@ The bar for Keep is high: would a competent agent be worse off on a typical task
 Pick the destination by scope:
 
 - **In-code comment** — rule applies to one file or function. Put the rule at the point of use; the agent sees it when editing that location. Example: an invariant about a specific function lives in a comment on that function.
-- **Nested `AGENTS.md`** in a subdirectory — rule applies to a subtree (e.g., `tests/AGENTS.md`, `migrations/AGENTS.md`). Tools that read `AGENTS.md` pick it up automatically when working in that subtree.
-- **Separate doc referenced from `AGENTS.md`** — content is procedural and the agent will look it up by name. Example: `docs/release-process.md` with a one-line pointer "See `docs/release-process.md` when cutting a release." Lazy-loaded — only paid for when followed.
+- **Separate doc referenced from `AGENTS.md`** — content is procedural or scoped to a subsystem, and the agent will look it up by name. Example: `docs/release-process.md` with a one-line pointer in AGENTS.md: "See `docs/release-process.md` when cutting a release." Lazy-loaded — only paid for when followed. Works across every tool that reads `AGENTS.md`, unlike nested `AGENTS.md` files whose support varies (Claude Code, for instance, doesn't hierarchically merge them the way it does `CLAUDE.md`).
 - **A new skill** — content is a multi-step procedure with its own decision tree and would benefit from being triggered by intent phrasing rather than file location. Example: "How to add a new promotion rule" — a workflow with branching choices is a better fit for a skill than a doc. Use `/skill-creator` to scaffold it.
 
 Cut the bloat and queue the extracts before verifying. There's no point verifying a claim that's getting deleted or moved out.
