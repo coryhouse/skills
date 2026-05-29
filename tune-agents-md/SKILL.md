@@ -47,9 +47,21 @@ For each section, paragraph, or rule, categorize it as one of:
 - **Bloat** — true but derivable from the code in under a minute (project structure, tech stack, generic best practices)
 - **Vague** — a rule without a concrete example or rationale ("write clean tests", "be careful with X")
 - **Mixed-signal** — critical warnings buried alongside nice-to-haves with no visual hierarchy
-- **Keep** — load-bearing, project-specific, hard to derive (accuracy verified in the next step)
+- **Extract** — genuinely useful but not globally useful. It pays a context tax on every agent turn even though it's only relevant in one corner of the project. Move it somewhere it'll be loaded only when needed.
+- **Keep** — load-bearing for *every* agent turn in this project (accuracy verified in the next step)
 
-Cut the bloat first. There's no point verifying a claim that's getting deleted for being derivable.
+The bar for Keep is high: would a competent agent be worse off on a typical task without this line? If the content only matters when touching a specific file, subsystem, or workflow, it's an Extract candidate.
+
+#### Where to extract
+
+Pick the destination by scope:
+
+- **In-code comment** — rule applies to one file or function. Put the rule at the point of use; the agent sees it when editing that location. Example: an invariant about a specific function lives in a comment on that function.
+- **Nested `AGENTS.md`** in a subdirectory — rule applies to a subtree (e.g., `tests/AGENTS.md`, `migrations/AGENTS.md`). Tools that read `AGENTS.md` pick it up automatically when working in that subtree.
+- **Separate doc referenced from `AGENTS.md`** — content is procedural and the agent will look it up by name. Example: `docs/release-process.md` with a one-line pointer "See `docs/release-process.md` when cutting a release." Lazy-loaded — only paid for when followed.
+- **A new skill** — content is a multi-step procedure with its own decision tree and would benefit from being triggered by intent phrasing rather than file location. Example: "How to add a new promotion rule" — a workflow with branching choices is a better fit for a skill than a doc. Use `/skill-creator` to scaffold it.
+
+Cut the bloat and queue the extracts before verifying. There's no point verifying a claim that's getting deleted or moved out.
 
 See `references/checklist.md` for the full audit checklist with specific patterns to watch for, and `references/anti-patterns.md` for examples of content that should be cut.
 
@@ -80,7 +92,7 @@ Audit is half the job; the harder half is finding gaps. Read for what *isn't* th
 Present findings as a categorized list. For each item:
 
 - **Where** — section or line range
-- **Verdict** — Wrong / Bloat / Vague / Missing / Mixed-signal
+- **Verdict** — Wrong / Bloat / Vague / Missing / Mixed-signal / Extract (with destination)
 - **Why** — one-line rationale tied to the mental model above
 - **Proposed change** — concrete edit, not abstract advice
 
