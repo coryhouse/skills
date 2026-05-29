@@ -32,9 +32,22 @@ If none exists, ask the user whether to bootstrap one from scratch — that's a 
 
 Read every line of the current file. Don't skim. The whole point is to evaluate each line against the bar.
 
-### 3. Verify claims against the codebase
+### 3. Audit each section
 
-This is the step most agents skip. Spot-check:
+For each section, paragraph, or rule, categorize it as one of:
+
+- **Bloat** — true but derivable from the code in under a minute (project structure, tech stack, generic best practices)
+- **Vague** — a rule without a concrete example or rationale ("write clean tests", "be careful with X")
+- **Mixed-signal** — critical warnings buried alongside nice-to-haves with no visual hierarchy
+- **Keep** — load-bearing, project-specific, hard to derive (accuracy verified in the next step)
+
+Cut the bloat first. There's no point verifying a claim that's getting deleted for being derivable.
+
+See `references/checklist.md` for the full audit checklist with specific patterns to watch for, and `references/anti-patterns.md` for examples of content that should be cut.
+
+### 4. Verify surviving claims against the codebase
+
+This is the step most agents skip. Spot-check only what survived audit — anything **Wrong** (factually inaccurate or out of date) gets re-categorized here:
 
 - **Versions** — do declared versions match `package.json` / `pom.xml` / `Cargo.toml` / lockfiles? Stale version numbers signal stale everything.
 - **Paths and module names** — does the directory tree it describes match `ls`? Have files moved or been renamed?
@@ -43,18 +56,6 @@ This is the step most agents skip. Spot-check:
 - **Tech stack claims** — Java version, Node version, framework version. Confirm against build files.
 
 Flag every drift. Stale facts in AGENTS.md are worse than missing facts — they get cited confidently.
-
-### 4. Audit each section
-
-For each section, paragraph, or rule, categorize it as one of:
-
-- **Wrong** — factually inaccurate or out of date
-- **Bloat** — true but derivable from the code in under a minute (project structure, tech stack, generic best practices)
-- **Vague** — a rule without a concrete example or rationale ("write clean tests", "be careful with X")
-- **Mixed-signal** — critical warnings buried alongside nice-to-haves with no visual hierarchy
-- **Keep** — load-bearing, project-specific, hard to derive
-
-See `references/checklist.md` for the full audit checklist with specific patterns to watch for, and `references/anti-patterns.md` for examples of content that should be cut.
 
 ### 5. Discover what's missing
 
